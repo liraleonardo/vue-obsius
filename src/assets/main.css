@@ -1,0 +1,20 @@
+@import './base.css';
+
+.app-container {
+  display: flex;
+  flex: 1;
+  height: fit-content;
+  border: 0;
+}
+
+.debug-red {
+  border: solid 1px red;
+}
+
+.debug-green {
+  border: solid 1px green;
+}
+
+.debug-blue {
+  border: solid 1px blue;
+}
