@@ -6,11 +6,12 @@ import SideBarMenuGroup from './SideBarMenuGroup.vue'
 import type { MenuItem } from 'primevue/menuitem'
 
 const expandedKeys = ref({})
-const items = ref([
+const items = ref<MenuItem[]>([
   {
     key: '0',
     label: 'Início',
-    icon: 'pi pi-fw pi-home'
+    icon: 'pi pi-fw pi-home',
+    action: '/'
   },
   {
     key: '1',
@@ -19,7 +20,8 @@ const items = ref([
     items: [
       {
         key: '1_0',
-        label: 'Lista de Bolsistas'
+        label: 'Lista de Bolsistas',
+        action: '/about'
       }
     ]
   },
@@ -30,15 +32,18 @@ const items = ref([
     items: [
       {
         key: '2_0',
-        label: 'Usuários e Permissões'
+        label: 'Usuários e Permissões',
+        action: '/user'
       },
       {
         key: '2_1',
-        label: 'Delete'
+        label: 'Delete',
+        action: '/user/delete'
       },
       {
         key: '2_2',
-        label: 'Search'
+        label: 'Search',
+        action: '/user/search'
       }
     ]
   }

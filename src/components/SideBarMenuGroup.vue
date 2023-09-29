@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { MenuItem } from 'primevue/menuitem'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import SideBarMenuItem from './SideBarMenuItem.vue'
+import router from '../router'
 
 const props = defineProps<{ item: MenuItem }>()
 
@@ -9,27 +10,34 @@ const emit = defineEmits(['expandMenuItem'])
 
 const expanded = ref(false)
 
+const hasChildren = computed(() => props.item.items && props.item.items.length > 0)
+
+const handleClick = () => {
+  if (props.item.action) {
+    router.push(props.item.action)
+    return
+  }
+  if (hasChildren.value) {
+    handleExpand()
+  }
+}
+
 const handleExpand = () => {
   emit('expandMenuItem', props.item)
   expanded.value = !expanded.value
 }
 </script>
 <template>
-  <div class="sidebar-menu-group-container">
+  <div class="sidebar-menu-group-container" @click="handleClick">
     <div class="sidebar-menu-group">
       <div class="menu-group-icon-container">
         <span class="menu-group-icon" :class="item.icon"></span>
       </div>
-      <span
-        class="menu-group-label"
-        :class="item.items && item.items.length > 0 ? '' : 'menu-group-nochild'"
-        >{{ item.label }}</span
-      >
-      <div
-        v-if="item.items && item.items.length > 0"
-        class="menu-expand-icon-container"
-        @click="handleExpand"
-      >
+
+      <span class="menu-group-label" :class="hasChildren ? '' : 'menu-group-nochild'">{{
+        item.label
+      }}</span>
+      <div v-if="hasChildren" class="menu-expand-icon-container">
         <span
           class="menu-expand-icon"
           :class="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
@@ -44,12 +52,23 @@ const handleExpand = () => {
 
 <style scoped>
 .sidebar-menu-group-container {
+  cursor: pointer;
+  &:hover {
+    background-color: #eaeaea80;
+  }
+  user-select: none; /* Standard syntax */
 }
 .sidebar-menu-group {
   display: flex;
   align-items: center;
   padding: 8px;
   height: 32px;
+  border-right: solid 6px transparent;
+
+  &:hover {
+    border-right: solid 6px #1b1f2e;
+    background-color: #dadada80;
+  }
 }
 .menu-group-icon-container {
   display: flex;
