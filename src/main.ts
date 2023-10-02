@@ -10,6 +10,9 @@ import Button from 'primevue/button'
 import Avatar from 'primevue/avatar'
 import Breadcrumb from 'primevue/breadcrumb'
 import PanelMenu from 'primevue/panelmenu'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
+import Divider from 'primevue/divider'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -27,5 +30,8 @@ app.component('Button', Button)
 app.component('Breadcrumb', Breadcrumb)
 app.component('Avatar', Avatar)
 app.component('PanelMenu', PanelMenu)
+app.component('TabView', TabView)
+app.component('TabPanel', TabPanel)
+app.component('Divider', Divider)
 
 app.mount('#app')

@@ -9,7 +9,7 @@ import AppTopBar from '@/components/AppTopBar.vue'
     <AppSideBar></AppSideBar>
     <div class="flex flex-column w-full main-container">
       <AppTopBar></AppTopBar>
-      <RouterView />
+      <RouterView style="margin-top: 80px" />
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ import AppTopBar from '@/components/AppTopBar.vue'
   display: flex;
   flex: 1;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: row;
 }
 

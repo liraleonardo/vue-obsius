@@ -39,9 +39,12 @@ const items = ref([
 <style scoped>
 .topbar-container {
   height: 80px;
+  width: calc(100% - 300px);
   padding: 12px 24px;
   background: var(--Cinza-claro, #f1f5f9);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  z-index: 1000;
 }
 
 .topbar-left-content {

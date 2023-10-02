@@ -1,9 +1,248 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import { ref } from 'vue'
+
+const active = ref(0)
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <div class="profile-header">
+      <div class="user-info-container">
+        <Avatar class="user-info-avatar" icon="pi pi-user" shape="circle" size="large"></Avatar>
+        <h1 class="user-info-full-name">Fulana Beltrana Cicrana de Tal</h1>
+      </div>
+      <span class="profile-last-update-date">Última atualização: 14/12/2019</span>
+    </div>
+    <!-- <span>Home Page</span> -->
+    <TabView v-model:activeIndex="active">
+      <TabPanel header="Dados Cadastrais">
+        <Divider align="left" class="p-0"> <h2 class="section-title">Dados pessoais</h2></Divider>
+        <div class="form-section-container formgrid grid">
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="fullName">Nome completo</label>
+              <input
+                id="fullName"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="rg">RG</label>
+              <input
+                id="rg"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-4">
+              <label class="form-input-label" for="birthDate">Nascimento</label>
+              <input
+                id="birthDate"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="cpf">CPF</label>
+              <input
+                id="cpf"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="gender">Sexo</label>
+              <input
+                id="gender"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="schooling">Escolaridade</label>
+              <input
+                id="schooling"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="maritalStatus">Estado civil</label>
+              <input
+                id="maritalStatus"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="maritalStatus">Currículo Lattes</label>
+              <input
+                id="maritalStatus"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+        </div>
+        <Divider align="left" class="p-0"> <h2 class="section-title">Endereço</h2></Divider>
+        <div class="form-section-container formgrid grid">
+          <div class="field col-12 md:col-6">
+            <div class="field col-4">
+              <label class="form-input-label" for="cep">CEP</label>
+              <input
+                id="cep"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="addressComplement">Complemento</label>
+              <input
+                id="addressComplement"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="neighborhood">Bairro</label>
+              <input
+                id="neighborhood"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="city">Cidade</label>
+              <input
+                id="city"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="street">Logradouro</label>
+              <input
+                id="street"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+          <div class="field col-12 md:col-6">
+            <div class="field col-9">
+              <label class="form-input-label" for="city">Estado</label>
+              <input
+                id="city"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </TabPanel>
+      <TabPanel header="Documentação">
+        <span>Dados</span>
+      </TabPanel>
+      <TabPanel header="Projetos">
+        <span>Dados</span>
+      </TabPanel>
+      <TabPanel header="Histórico Fianceiro">
+        <span class="">Dados</span>
+      </TabPanel>
+    </TabView>
   </main>
 </template>
+
+<style lang="css">
+.p-divider.p-divider-horizontal:before {
+  border-top: 1px #1b1f2e solid;
+}
+.p-divider.p-divider-horizontal .p-divider-content {
+  padding: 0;
+}
+
+.section-title {
+  color: var(--Cinza-principal, #1b1f2e);
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.form-section-container {
+  padding: 16px;
+}
+
+.profile-header {
+  background-color: #1b1f2e;
+  height: 104px;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 24px;
+}
+
+.user-info-container {
+  display: flex;
+  width: fit-content;
+  align-self: center;
+  align-items: center;
+}
+
+.user-info-avatar {
+  width: 72px;
+  height: 72px;
+}
+
+.user-info-full-name {
+  margin-left: 28px;
+  color: var(--Branco-puro, #fff);
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.profile-last-update-date {
+  align-self: end;
+
+  color: var(--Branco-puro, #fff);
+
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form-input-label {
+  color: var(--Cinza-escuro, #3a3a3a);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+</style>

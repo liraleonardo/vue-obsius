@@ -113,14 +113,15 @@ const handleMenuItemExpand = (item: MenuItem) => {
 .sidebar-container {
   width: 300px;
   height: 100%;
-  position: absolute;
+
+  position: fixed;
   top: 0;
   left: 0;
   border-right: 2px solid #1b1f2e;
 }
 
 .sidebar-black-bg {
-  position: absolute;
+  position: fixed;
 
   background-color: #1b1f2e;
 
