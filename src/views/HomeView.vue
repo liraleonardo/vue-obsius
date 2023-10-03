@@ -15,9 +15,7 @@ const form = reactive({
   curriculumUrl: ''
 })
 
-const error = ref<{ [key: string]: string }>({
-  rg: 'Aconteceu um erro com o RG'
-})
+const error = ref<{ [key: string]: string }>({})
 
 const isValid = (): boolean => {
   let localErrors: typeof error.value = {}
@@ -40,6 +38,17 @@ const handleSave = () => {
     console.log('SUBMIT')
   }
 }
+
+const genderOptions = ['MASCULINO', 'FEMININO']
+const schoolingOptions = [
+  'ENSINO MÉDIO',
+  'GRADUAÇÃO',
+  'PÓS-GRADUAÇÃO',
+  'MESTRADO',
+  'DOUTORADO',
+  'PÓS-DOUTORADO'
+]
+const matiralOptions = ['SOLTEIRO', 'CASADO']
 </script>
 
 <template>
@@ -129,13 +138,14 @@ const handleSave = () => {
             required
             v-slot="{ errorClass, id }"
           >
-            <InputText
+            <Dropdown
               :id="id"
-              placeholder=""
               size="small"
               :class="errorClass"
+              :options="genderOptions"
               v-model="form.gender"
-            ></InputText>
+              class="show-component-small"
+            ></Dropdown>
           </FormInputContainer>
           <FormInputContainer
             inputId="schooling"
@@ -144,13 +154,22 @@ const handleSave = () => {
             required
             v-slot="{ errorClass, id }"
           >
-            <InputText
+            <!-- <InputText
               :id="id"
               placeholder=""
               size="small"
               :class="errorClass"
               v-model="form.schooling"
-            ></InputText>
+            ></InputText> -->
+
+            <Dropdown
+              :id="id"
+              size="small"
+              :class="errorClass"
+              :options="schoolingOptions"
+              v-model="form.schooling"
+              class="show-component-small"
+            ></Dropdown>
           </FormInputContainer>
           <FormInputContainer
             inputId="maritalStatus"
@@ -159,13 +178,21 @@ const handleSave = () => {
             required
             v-slot="{ errorClass, id }"
           >
-            <InputText
+            <Dropdown
+              :id="id"
+              size="small"
+              :class="errorClass"
+              v-model="form.maritalStatus"
+              class="show-component-small"
+              :options="matiralOptions"
+            ></Dropdown>
+            <!-- <InputText
               :id="id"
               placeholder=""
               size="small"
               :class="errorClass"
               v-model="form.maritalStatus"
-            ></InputText>
+            ></InputText> -->
           </FormInputContainer>
           <FormInputContainer
             inputId="curriculumUrl"
