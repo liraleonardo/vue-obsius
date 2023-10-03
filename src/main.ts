@@ -15,6 +15,7 @@ import TabPanel from 'primevue/tabpanel'
 import Divider from 'primevue/divider'
 import InputText from 'primevue/inputtext'
 import Dropdown from 'primevue/dropdown'
+import RadioButton from 'primevue/radiobutton'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -37,5 +38,6 @@ app.component('TabPanel', TabPanel)
 app.component('Divider', Divider)
 app.component('InputText', InputText)
 app.component('Dropdown', Dropdown)
+app.component('RadioButton', RadioButton)
 
 app.mount('#app')

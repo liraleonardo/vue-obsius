@@ -22,7 +22,7 @@ const props = defineProps<FormInputContainerProps>()
         `${label} ${required ? '*' : ''}`
       }}</label>
 
-      <slot :id="inputId" :errorClass="error ? 'p-invalid' : ''"> </slot>
+      <slot :id="inputId" :errorClass="error ? 'p-invalid' : ''"></slot>
       <div v-show="!!error || !!hint">
         <small v-if="!!error" class="form-input-error">{{ error }}</small>
         <small v-else-if="!!hint" class="form-input-hint">{{ hint }}</small>

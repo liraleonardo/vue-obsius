@@ -138,14 +138,27 @@ const matiralOptions = ['SOLTEIRO', 'CASADO']
             required
             v-slot="{ errorClass, id }"
           >
-            <Dropdown
+            <div class="flex align-items-center">
+              <RadioButton v-model="form.gender" :id="id" :class="errorClass" value="MASCULINO" />
+              <label :for="id" class="mx-2">Masculino</label>
+
+              <RadioButton
+                v-model="form.gender"
+                :id="id"
+                class="ml-2"
+                :class="errorClass"
+                value="FEMININO"
+              />
+              <label :for="id" class="ml-2">Feminino</label>
+            </div>
+            <!-- <Dropdown
               :id="id"
               size="small"
               :class="errorClass"
               :options="genderOptions"
               v-model="form.gender"
               class="show-component-small"
-            ></Dropdown>
+            ></Dropdown> -->
           </FormInputContainer>
           <FormInputContainer
             inputId="schooling"
