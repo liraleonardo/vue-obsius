@@ -1,7 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import FormInputContainer from '../components/FormInputContainer.vue'
 
 const active = ref(0)
+
+const form = reactive({
+  fullName: '',
+  rg: '',
+  birthDate: null,
+  cpf: '',
+  gender: 'MASCULINO',
+  schooling: 'GRADUACAO',
+  maritalStatus: 'SOLTEIRO',
+  curriculumUrl: ''
+})
+
+const error = ref<{ [key: string]: string }>({
+  rg: 'Aconteceu um erro com o RG'
+})
+
+const isValid = (): boolean => {
+  let localErrors: typeof error.value = {}
+
+  if (!form.fullName) {
+    localErrors.fullName = 'Campo obrigatório'
+  }
+  if (!form.rg) {
+    localErrors.rg = 'Campo obrigatório'
+  }
+
+  error.value = localErrors
+  console.log(error)
+  return Object.keys(error).length === 0
+}
+
+const handleSave = () => {
+  console.log(form, error)
+  if (isValid()) {
+    console.log('SUBMIT')
+  }
+}
 </script>
 
 <template>
@@ -13,91 +51,137 @@ const active = ref(0)
       </div>
       <span class="profile-last-update-date">Última atualização: 14/12/2019</span>
     </div>
+
     <!-- <span>Home Page</span> -->
     <TabView v-model:activeIndex="active">
       <TabPanel header="Dados Cadastrais">
+        <div class="flex justify-content-end mb-2">
+          <Button class="p-button-sm p-button-secondary" @click="handleSave">Salvar</Button>
+        </div>
         <Divider align="left" class="p-0"> <h2 class="section-title">Dados pessoais</h2></Divider>
-        <div class="form-section-container formgrid grid">
-          <div class="field col-12 md:col-6">
-            <div class="field col-9">
-              <label class="form-input-label" for="fullName">Nome completo</label>
-              <input
-                id="fullName"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
-          <div class="field col-12 md:col-6">
-            <div class="field col-9">
-              <label class="form-input-label" for="rg">RG</label>
-              <input
-                id="rg"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
-          <div class="field col-12 md:col-6">
-            <div class="field col-4">
-              <label class="form-input-label" for="birthDate">Nascimento</label>
-              <input
-                id="birthDate"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
-          <div class="field col-12 md:col-6">
-            <div class="field col-9">
-              <label class="form-input-label" for="cpf">CPF</label>
-              <input
-                id="cpf"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
-          <div class="field col-12 md:col-6">
-            <div class="field col-9">
-              <label class="form-input-label" for="gender">Sexo</label>
-              <input
-                id="gender"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
-          <div class="field col-12 md:col-6">
-            <div class="field col-9">
-              <label class="form-input-label" for="schooling">Escolaridade</label>
-              <input
-                id="schooling"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
-          <div class="field col-12 md:col-6">
-            <div class="field col-9">
-              <label class="form-input-label" for="maritalStatus">Estado civil</label>
-              <input
-                id="maritalStatus"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
-          <div class="field col-12 md:col-6">
-            <div class="field col-9">
-              <label class="form-input-label" for="maritalStatus">Currículo Lattes</label>
-              <input
-                id="maritalStatus"
-                type="text"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              />
-            </div>
-          </div>
+        <div class="form-section-container formgrid grid row-gap-3">
+          <FormInputContainer
+            inputId="fullName"
+            :error="error.fullName"
+            hint="Exemplo de dica para o nome Completo"
+            label="Nome Completo"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.fullName"
+            ></InputText>
+          </FormInputContainer>
+          <FormInputContainer
+            inputId="rg"
+            :error="error.rg"
+            label="RG"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.rg"
+            ></InputText>
+          </FormInputContainer>
+          <FormInputContainer
+            inputId="birthDate"
+            :error="error.birthDate"
+            label="Nascimento"
+            classContent="field col-4"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.birthDate"
+            ></InputText>
+          </FormInputContainer>
+          <FormInputContainer
+            inputId="cpf"
+            :error="error.cpf"
+            label="CPF"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.cpf"
+            ></InputText>
+          </FormInputContainer>
+          <FormInputContainer
+            inputId="gender"
+            :error="error.gender"
+            label="Sexo"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.gender"
+            ></InputText>
+          </FormInputContainer>
+          <FormInputContainer
+            inputId="schooling"
+            :error="error.schooling"
+            label="Escolaridade"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.schooling"
+            ></InputText>
+          </FormInputContainer>
+          <FormInputContainer
+            inputId="maritalStatus"
+            :error="error.maritalStatus"
+            label="Estado civil"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.maritalStatus"
+            ></InputText>
+          </FormInputContainer>
+          <FormInputContainer
+            inputId="curriculumUrl"
+            :error="error.curriculumUrl"
+            label="Currículo Lattes"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-model="form.curriculumUrl"
+            ></InputText>
+          </FormInputContainer>
         </div>
         <Divider align="left" class="p-0"> <h2 class="section-title">Endereço</h2></Divider>
         <div class="form-section-container formgrid grid">
@@ -176,7 +260,7 @@ const active = ref(0)
   </main>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .grid {
   margin: 0px;
 }
