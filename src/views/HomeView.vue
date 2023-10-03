@@ -164,24 +164,53 @@ const active = ref(0)
         </div>
       </TabPanel>
       <TabPanel header="Documentação">
-        <span>Dados</span>
+        <span>Documentação</span>
       </TabPanel>
       <TabPanel header="Projetos">
-        <span>Dados</span>
+        <span>Projetos</span>
       </TabPanel>
       <TabPanel header="Histórico Fianceiro">
-        <span class="">Dados</span>
+        <span class="">Histórico Fianceiro</span>
       </TabPanel>
     </TabView>
   </main>
 </template>
 
 <style lang="css">
+.grid {
+  margin: 0px;
+}
 .p-divider.p-divider-horizontal:before {
   border-top: 1px #1b1f2e solid;
 }
 .p-divider.p-divider-horizontal .p-divider-content {
-  padding: 0;
+  padding: 0 14px 0 0;
+}
+
+.p-tabview .p-tabview-panels {
+  padding: 27px 0 27px 27px;
+}
+
+.p-tabview .p-tabview-nav {
+  border-bottom: 2px solid #59b0fc80;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  border: 0;
+  color: #3a3a3a;
+}
+
+.p-tabview-title {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border: solid 3px #59b0fc;
+  border-width: 0 0 3px 0;
+  color: #59b0fc;
 }
 
 .section-title {
