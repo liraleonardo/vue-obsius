@@ -1,6 +1,66 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import FormInputContainer from '../components/FormInputContainer.vue'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+import { toTypedSchema } from '@vee-validate/yup'
+
+let userSchema = toTypedSchema(
+  yup.object({
+    name: yup.string().required('O Campo é requerido'),
+    age: yup
+      .number()
+      .required()
+      .when('email', {
+        is: true,
+        then: (schema) => schema.min(5),
+        otherwise: (schema) => schema.moreThan(18)
+      })
+      .positive()
+
+      .integer(),
+    email: yup.string().required().email('E-mail inválido'),
+    password: yup.string().min(6).required(),
+    confirmedPassword: yup
+      .string()
+      .required()
+      .oneOf([yup.ref('password')], 'Senha Informada não é igual')
+  })
+)
+
+const { errors, handleSubmit, defineInputBinds, meta } = useForm({
+  validationSchema: userSchema
+})
+
+const name = defineInputBinds('name', {
+  validateOnInput: true,
+  validateOnBlur: false,
+  validateOnChange: false
+})
+const email = defineInputBinds('email', {
+  validateOnInput: true,
+  validateOnBlur: false,
+  validateOnChange: false
+})
+const age = defineInputBinds('age', {
+  validateOnInput: true,
+  validateOnBlur: false,
+  validateOnChange: false
+})
+const password = defineInputBinds('password', {
+  validateOnInput: true,
+  validateOnBlur: false,
+  validateOnChange: false
+})
+const confirmedPassword = defineInputBinds('confirmedPassword', {
+  validateOnInput: true,
+  validateOnBlur: false,
+  validateOnChange: false
+})
+
+const onSubmit = handleSubmit((values) => {
+  console.log(values)
+})
 
 const active = ref(0)
 
@@ -288,7 +348,98 @@ const matiralOptions = ['SOLTEIRO', 'CASADO']
         </div>
       </TabPanel>
       <TabPanel header="Documentação">
-        <span>Documentação</span>
+        <form class="flex flex-column formgrid grid col-12 row-gap-3" @submit="onSubmit">
+          <FormInputContainer
+            inputId="name"
+            :error="errors.name"
+            label="Nome"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-bind="name"
+            ></InputText>
+          </FormInputContainer>
+
+          <FormInputContainer
+            inputId="email"
+            :error="errors.email"
+            label="E-mail"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-bind="email"
+            ></InputText>
+          </FormInputContainer>
+
+          <FormInputContainer
+            inputId="age"
+            :error="errors.age"
+            label="Idade"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <InputText
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-bind="age"
+            ></InputText>
+          </FormInputContainer>
+
+          <FormInputContainer
+            inputId="password"
+            :error="errors.password"
+            label="Senha"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <Password
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-bind="password"
+              type="password"
+              :feedback="false"
+              toggleMask
+              inputClass="w-full"
+            ></Password>
+          </FormInputContainer>
+
+          <FormInputContainer
+            inputId="confirmedPassword"
+            :error="errors.confirmedPassword"
+            label="Confirmar Senha"
+            required
+            v-slot="{ errorClass, id }"
+          >
+            <Password
+              :id="id"
+              placeholder=""
+              size="small"
+              :class="errorClass"
+              v-bind="confirmedPassword"
+              v-model="confirmedPassword.value"
+              :feedback="false"
+              toggleMask
+              type="password"
+              inputClass="w-full"
+            ></Password>
+          </FormInputContainer>
+
+          <Button class="mt-3 ml-3" style="width: fit-content" type="submit">Enviar</Button>
+        </form>
       </TabPanel>
       <TabPanel header="Projetos">
         <span>Projetos</span>
@@ -300,7 +451,7 @@ const matiralOptions = ['SOLTEIRO', 'CASADO']
   </main>
 </template>
 
-<style lang="css" scoped>
+<style lang="css">
 .grid {
   margin: 0px;
 }
@@ -335,6 +486,13 @@ const matiralOptions = ['SOLTEIRO', 'CASADO']
   border: solid 3px #59b0fc;
   border-width: 0 0 3px 0;
   color: #59b0fc;
+}
+
+.p-input-icon-left > i,
+.p-input-icon-left > svg,
+.p-input-icon-right > i,
+.p-input-icon-right > svg {
+  margin-top: -0.5rem !important;
 }
 
 .section-title {

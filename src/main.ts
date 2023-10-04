@@ -22,6 +22,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import Password from 'primevue/password'
 
 const app = createApp(App)
 
@@ -39,5 +40,6 @@ app.component('Divider', Divider)
 app.component('InputText', InputText)
 app.component('Dropdown', Dropdown)
 app.component('RadioButton', RadioButton)
+app.component('Password', Password)
 
 app.mount('#app')
